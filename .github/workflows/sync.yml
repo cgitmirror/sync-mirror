@@ -11,13 +11,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: ['config']
+        repo: ['bash', 'config']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ matrix.repo }}
           token: ${{ secrets.GH_TOKEN }}
+
+      - name: Random wait
+        run: |
+          sleep $((RANDOM % 180))
 
       - name: Set repository
         run: |
