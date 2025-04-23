@@ -27,8 +27,15 @@ jobs:
 
       - name: Fetch repository
         run: |
-          git fetch upstream --prune
+          git fetch upstream --prune --force
 
       - name: Push repository
         run: |
           git push --mirror
+
+      # - name: Force Push to Mirror
+      # run: |
+      ## Push all fetched branches from upstream to origin, overwriting existing ones
+      # git push origin --force 'refs/remotes/upstream/*:refs/heads/*'
+      ## Push all fetched tags, overwriting existing ones
+      # git push origin --force --tags
