@@ -13,16 +13,22 @@ jobs:
       matrix:
         repo: ['config']
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ matrix.repo }}
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Push from upstream
+      - name: Set repository
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git remote add upstream https://git.savannah.gnu.org/git/${{ matrix.repo }}.git
+
+      - name: Fetch repository
+        run: |
           git fetch upstream --prune
+
+      - name: Push repository
+        run: |
           git push --mirror
